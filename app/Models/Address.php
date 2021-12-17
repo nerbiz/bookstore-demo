@@ -13,6 +13,11 @@ class Address extends Model
 
     protected $guarded = ['id'];
 
+    public function author(): HasOne
+    {
+        return $this->hasOne(Author::class);
+    }
+
     public function publisher(): HasOne
     {
         return $this->hasOne(Publisher::class);
