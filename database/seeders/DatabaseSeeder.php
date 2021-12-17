@@ -31,8 +31,10 @@ class DatabaseSeeder extends Seeder
         Language::factory()->count(10)->create();
 
         $countries->each(function (Country $country) {
-            $randomLanguages = Language::inRandomOrder()->take(random_int(1, 3))->get()->unique();
-            $country->languages()->attach($randomLanguages);
+            $country->languages()->attach(Language::inRandomOrder()
+                ->take(random_int(1, 3))
+                ->get()
+                ->unique());
         });
 
         Publisher::factory()->count(5)->create();
@@ -50,24 +52,29 @@ class DatabaseSeeder extends Seeder
         $orders = Order::factory()->count(1000)->create();
 
         $books->each(function (Book $book) {
-            $randomGenres = Genre::inRandomOrder()->take(random_int(1, 3))->get()->unique();
-            $randomAuthors = Author::inRandomOrder()->take(random_int(1, 3))->get()->unique();
+            $book->genres()->attach(Genre::inRandomOrder()
+                ->take(random_int(1, 3))
+                ->get()
+                ->unique());
 
-            $book->genres()->attach($randomGenres);
-            $book->authors()->attach($randomAuthors);
+            $book->authors()->attach(Author::inRandomOrder()
+                ->take(random_int(1, 3))
+                ->get()
+                ->unique());
         });
 
         $orders->each(function (Order $order) {
-            $randomBooks = Book::inRandomOrder()->take(random_int(1, 5))->get()->unique();
-            $attach = [];
-            foreach ($randomBooks as $book) {
-                $attach[$book->id] = [
-                    'quantity' => random_int(1, 2),
-                    'price' => $book->price,
-                ];
-            }
-
-            $order->books()->attach($attach);
+            $order->books()->attach(Book::inRandomOrder()
+                ->take(random_int(1, 5))
+                ->get()
+                ->unique()
+                ->map(function (Book $book) {
+                    return [
+                        'book_id' => $book->id,
+                        'quantity' => random_int(1, 2),
+                        'price' => $book->price,
+                    ];
+                }));
         });
     }
 }
