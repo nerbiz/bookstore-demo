@@ -27,4 +27,10 @@ class Book extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class)
+            ->withPivot('quantity', 'price');
+    }
 }

@@ -18,6 +18,11 @@ class Address extends Model
         return $this->hasOne(Author::class);
     }
 
+    public function customer(): HasOne
+    {
+        return $this->hasOne(Customer::class);
+    }
+
     public function publisher(): HasOne
     {
         return $this->hasOne(Publisher::class);
