@@ -17,3 +17,7 @@ Run migrations and seeders:
 ```
 php artisan migrate:fresh --seed
 ```
+
+## Database diagram
+
+![Database diagram](database-diagram.png)
