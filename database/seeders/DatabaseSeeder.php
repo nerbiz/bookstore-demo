@@ -25,56 +25,61 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $countries = Country::factory()->count(10)->create();
+        Language::factory()->count(10)->create();
+        Country::factory()->count(10)->create()
+            ->each(function (Country $country) {
+                $country->languages()->attach(
+                    Language::inRandomOrder()
+                        ->take(random_int(1, 3))
+                        ->get()
+                        ->unique()
+                );
+            });
         City::factory()->count(50)->create();
         Address::factory()->count(50)->create();
-        Language::factory()->count(10)->create();
-
-        $countries->each(function (Country $country) {
-            $country->languages()->attach(Language::inRandomOrder()
-                ->take(random_int(1, 3))
-                ->get()
-                ->unique());
-        });
-
         Publisher::factory()->count(5)->create();
-        collect(['hardcover', 'paperback', 'e-book'])
-            ->each(fn(string $bookType) => BookType::create(['name' => $bookType]));
-        $books = Book::factory()->count(250)->create();
-
         Genre::factory()->count(7)->create();
         Author::factory()->count(150)->create();
+        Customer::factory()->count(300)->create();
+
+        collect(['hardcover', 'paperback', 'e-book'])
+            ->each(fn(string $bookType) => BookType::create(['name' => $bookType]));
 
         collect(['paid', 'pending', 'rejected'])
             ->each(fn(string $orderStatus) => OrderStatus::create(['name' => $orderStatus]));
 
-        Customer::factory()->count(300)->create();
-        $orders = Order::factory()->count(1000)->create();
+        Book::factory()->count(250)->create()
+            ->each(function (Book $book) {
+                $book->genres()->attach(
+                    Genre::inRandomOrder()
+                        ->take(random_int(1, 3))
+                        ->get()
+                        ->unique()
+                );
 
-        $books->each(function (Book $book) {
-            $book->genres()->attach(Genre::inRandomOrder()
-                ->take(random_int(1, 3))
-                ->get()
-                ->unique());
+                $book->authors()->attach(
+                    Author::inRandomOrder()
+                        ->take(random_int(1, 3))
+                        ->get()
+                        ->unique()
+                );
+            });
 
-            $book->authors()->attach(Author::inRandomOrder()
-                ->take(random_int(1, 3))
-                ->get()
-                ->unique());
-        });
-
-        $orders->each(function (Order $order) {
-            $order->books()->attach(Book::inRandomOrder()
-                ->take(random_int(1, 5))
-                ->get()
-                ->unique()
-                ->map(function (Book $book) {
-                    return [
-                        'book_id' => $book->id,
-                        'quantity' => random_int(1, 2),
-                        'price' => $book->price,
-                    ];
-                }));
-        });
+        Order::factory()->count(1000)->create()
+            ->each(function (Order $order) {
+                $order->books()->attach(
+                    Book::inRandomOrder()
+                        ->take(random_int(1, 5))
+                        ->get()
+                        ->unique()
+                        ->map(function (Book $book) {
+                            return [
+                                'book_id' => $book->id,
+                                'quantity' => random_int(1, 2),
+                                'price' => $book->price,
+                            ];
+                        })
+                );
+            });
     }
 }
