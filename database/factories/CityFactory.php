@@ -16,7 +16,7 @@ class CityFactory extends Factory
     {
         return [
             'country_id' => Country::inRandomOrder()->first()->id,
-            'name' => ucfirst($this->faker->unique()->word()),
+            'name' => ucfirst($this->faker->word()),
         ];
     }
 }

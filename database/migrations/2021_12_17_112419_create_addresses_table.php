@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCitiesTable extends Migration
+class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateCitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('country_id')
+            $table->foreignId('city_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->string('name');
+            $table->string('street');
+            $table->string('housenumber');
+            $table->string('zipcode');
             $table->timestamps();
         });
     }
@@ -31,10 +33,10 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('cities', function (Blueprint $table) {
-            $table->dropForeign(['country_id']);
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->dropForeign(['city_id']);
         });
 
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('addresses');
     }
 }

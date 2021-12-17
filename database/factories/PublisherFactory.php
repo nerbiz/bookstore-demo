@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use JetBrains\PhpStorm\ArrayShape;
 
-class CountryFactory extends Factory
+class PublisherFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,6 +15,7 @@ class CountryFactory extends Factory
     public function definition(): array
     {
         return [
+            'address_id' => Address::inRandomOrder()->first()->id,
             'name' => ucfirst($this->faker->word()),
         ];
     }

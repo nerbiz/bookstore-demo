@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class City extends Model
+class Address extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function addresses(): HasMany
+    public function publisher(): HasOne
     {
-        return $this->hasMany(Address::class);
+        return $this->hasOne(Publisher::class);
     }
 
-    public function country(): BelongsTo
+    public function city(): BelongsTo
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(City::class);
     }
 }
