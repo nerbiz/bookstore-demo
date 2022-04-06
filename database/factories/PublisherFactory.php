@@ -16,7 +16,7 @@ class PublisherFactory extends Factory
     {
         return [
             'address_id' => Address::inRandomOrder()->first()->id,
-            'name' => ucfirst($this->faker->word()),
+            'name' => $this->faker->company(),
         ];
     }
 }

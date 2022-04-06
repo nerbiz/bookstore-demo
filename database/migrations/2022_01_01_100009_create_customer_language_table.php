@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAddressesTable extends Migration
+class CreateCustomerLanguageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('customer_language', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('city_id')
+            $table->foreignId('customer_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->string('street');
-            $table->string('housenumber');
-            $table->string('zipcode');
+            $table->foreignId('language_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -33,10 +34,11 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->dropForeign(['city_id']);
+        Schema::table('customer_language', function (Blueprint $table) {
+            $table->dropForeign(['customer_id']);
+            $table->dropForeign(['language_id']);
         });
 
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('customer_language');
     }
 }

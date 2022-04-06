@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookOrderTable extends Migration
+class CreateBookCountryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreateBookOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('book_order', function (Blueprint $table) {
+        Schema::create('book_country', function (Blueprint $table) {
             $table->id();
             $table->foreignId('book_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->foreignId('order_id')
+            $table->foreignId('country_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->unsignedInteger('quantity');
-            $table->unsignedInteger('price');
             $table->timestamps();
         });
     }
@@ -36,11 +34,11 @@ class CreateBookOrderTable extends Migration
      */
     public function down()
     {
-        Schema::table('book_order', function (Blueprint $table) {
-            $table->dropForeign(['order_id']);
+        Schema::table('book_country', function (Blueprint $table) {
             $table->dropForeign(['book_id']);
+            $table->dropForeign(['country_id']);
         });
 
-        Schema::dropIfExists('book_order');
+        Schema::dropIfExists('book_country');
     }
 }

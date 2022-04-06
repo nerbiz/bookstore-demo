@@ -17,9 +17,7 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'book_type_id' => BookType::inRandomOrder()->first()->id,
             'publisher_id' => Publisher::inRandomOrder()->first()->id,
-            'language_id' => Language::inRandomOrder()->first()->id,
             'isbn' => $this->faker->isbn13(),
             'title' => ucfirst(implode(' ', $this->faker->words(random_int(1, 6)))),
             'price' => random_int(5, 90) * 100,

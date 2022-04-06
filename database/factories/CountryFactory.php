@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use JetBrains\PhpStorm\ArrayShape;
 
 class CountryFactory extends Factory
 {
@@ -15,7 +14,8 @@ class CountryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucfirst($this->faker->word()),
+            'name' => $this->faker->country(),
+            'main_locale' => $this->faker->locale(),
         ];
     }
 }

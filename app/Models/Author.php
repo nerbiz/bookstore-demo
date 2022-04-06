@@ -22,4 +22,9 @@ class Author extends Model
     {
         return $this->belongsToMany(Book::class);
     }
+
+    public function languages(): BelongsToMany
+    {
+        return $this->belongsToMany(Language::class);
+    }
 }

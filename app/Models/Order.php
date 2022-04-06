@@ -13,6 +13,11 @@ class Order extends Model
 
     protected $guarded = ['id'];
 
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public function orderStatus(): BelongsTo
     {
         return $this->belongsTo(OrderStatus::class);
@@ -21,6 +26,6 @@ class Order extends Model
     public function books(): BelongsToMany
     {
         return $this->belongsToMany(Book::class)
-            ->withPivot('quantity', 'price');
+            ->withPivot('quantity');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBooksTable extends Migration
+class CreateBookLanguageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateBooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('book_language', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_type_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-            $table->foreignId('publisher_id')
+            $table->foreignId('book_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
@@ -27,12 +23,6 @@ class CreateBooksTable extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->string('isbn');
-            $table->string('title');
-            $table->unsignedInteger('price');
-            $table->text('summary');
-            $table->unsignedInteger('pages');
-            $table->date('published_at');
             $table->timestamps();
         });
     }
@@ -44,12 +34,11 @@ class CreateBooksTable extends Migration
      */
     public function down()
     {
-        Schema::table('books', function (Blueprint $table) {
+        Schema::table('book_language', function (Blueprint $table) {
+            $table->dropForeign(['book_id']);
             $table->dropForeign(['language_id']);
-            $table->dropForeign(['publisher_id']);
-            $table->dropForeign(['book_type_id']);
         });
 
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('book_language');
     }
 }

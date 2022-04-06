@@ -18,6 +18,7 @@ class CustomerFactory extends Factory
             'address_id' => Address::inRandomOrder()->first()->id,
             'first_name' => $this->faker->firstName(),
             'surname' => $this->faker->lastName(),
+            'email' => $this->faker->email(),
         ];
     }
 }

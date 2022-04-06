@@ -13,9 +13,9 @@ class Book extends Model
 
     protected $guarded = ['id'];
 
-    public function bookType(): BelongsTo
+    public function publisher(): BelongsTo
     {
-        return $this->belongsTo(BookType::class);
+        return $this->belongsTo(Publisher::class);
     }
 
     public function authors(): BelongsToMany
@@ -23,14 +23,29 @@ class Book extends Model
         return $this->belongsToMany(Author::class);
     }
 
+    public function bookTypes(): BelongsToMany
+    {
+        return $this->belongsToMany(BookType::class);
+    }
+
+    public function countries(): BelongsToMany
+    {
+        return $this->belongsToMany(Country::class);
+    }
+
     public function genres(): BelongsToMany
     {
         return $this->belongsToMany(Genre::class);
     }
 
+    public function languages(): BelongsToMany
+    {
+        return $this->belongsToMany(Language::class);
+    }
+
     public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class)
-            ->withPivot('quantity', 'price');
+            ->withPivot('quantity');
     }
 }

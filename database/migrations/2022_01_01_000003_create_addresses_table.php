@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomersTable extends Migration
+class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('address_id')
+            $table->foreignId('city_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->string('first_name');
-            $table->string('surname');
+            $table->string('street');
+            $table->string('house_number');
+            $table->string('zipcode');
             $table->timestamps();
         });
     }
@@ -32,10 +33,10 @@ class CreateCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::table('customers', function (Blueprint $table) {
-            $table->dropForeign(['address_id']);
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->dropForeign(['city_id']);
         });
 
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('addresses');
     }
 }

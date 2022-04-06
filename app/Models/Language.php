@@ -12,8 +12,23 @@ class Language extends Model
 
     protected $guarded = ['id'];
 
+    public function authors(): BelongsToMany
+    {
+        return $this->belongsToMany(Author::class);
+    }
+
+    public function books(): BelongsToMany
+    {
+        return $this->belongsToMany(Book::class);
+    }
+
     public function countries(): BelongsToMany
     {
         return $this->belongsToMany(Country::class);
+    }
+
+    public function customers(): BelongsToMany
+    {
+        return $this->belongsToMany(Customer::class);
     }
 }
