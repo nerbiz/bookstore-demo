@@ -1,6 +1,6 @@
-# Bookstore demo database
+# Bookstore demo
 
-A demo database of a fictional bookstore, to practise queries with.
+A fictional bookstore, to practise with.
 
 ## Installation
 Install Composer dependencies:
