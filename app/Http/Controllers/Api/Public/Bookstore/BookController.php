@@ -18,7 +18,8 @@ class BookController extends Controller
             'bookTypes',
             'countries',
             'genres',
-            'languages'
+            'languages',
+            'orders'
         ];
     }
 }

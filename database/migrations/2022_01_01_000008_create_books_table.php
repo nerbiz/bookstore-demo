@@ -21,7 +21,7 @@ class CreateBooksTable extends Migration
                 ->onDelete('restrict');
             $table->string('isbn')->unique();
             $table->string('title');
-            $table->unsignedInteger('price');
+            $table->unsignedFloat('price');
             $table->text('summary');
             $table->unsignedInteger('pages');
             $table->date('published_at');
