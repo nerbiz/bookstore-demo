@@ -12,5 +12,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1'], function () {
            'version' => 'v1',
         ]);
     });
-    Orion::resource('books', BookController::class)->only(['index', 'show']);
+    Route::prefix('/public')->group(function () {
+        Orion::resource('books', BookController::class)->only(['index', 'show']);
+    });
 });
