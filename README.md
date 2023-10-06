@@ -1,6 +1,6 @@
 # Bookstore demo
 
-A fictional bookstore, to practise with.
+A fictional bookstore, to practise with. Models and relations are included.
 
 ## Installation
 Install Composer dependencies.
